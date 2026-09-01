@@ -20,6 +20,13 @@ const reporters: Parameters<typeof defineConfig>[0]['reporter'] = [
       suiteTitle: true,
     },
   ],
+  [
+    '@flakiness/playwright',
+    {
+      outputFolder: 'reports/flakiness',
+      disableUpload: true, // no Flakiness.io account/token — never attempt to upload
+    },
+  ],
 ];
 
 export default defineConfig({

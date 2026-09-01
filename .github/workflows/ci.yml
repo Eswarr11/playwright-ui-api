@@ -13,7 +13,7 @@ permissions:
 env:
   API_BASE_URL: https://fakestoreapi.com
   UI_BASE_URL: https://www.saucedemo.com
-  PLAYWRIGHT_IMAGE: mcr.microsoft.com/playwright:v1.61.1-noble
+  PLAYWRIGHT_IMAGE: mcr.microsoft.com/playwright:v1.62.1-noble
 
 jobs:
   quality-gates:
@@ -40,7 +40,7 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 30
     container:
-      image: mcr.microsoft.com/playwright:v1.61.1-noble
+      image: ${{ env.PLAYWRIGHT_IMAGE }}
     env:
       ACTIONS_ALLOW_USE_UNSECURE_NODE_VERSION: true
     steps:
@@ -119,6 +119,15 @@ jobs:
           if-no-files-found: warn
           retention-days: 1
 
+      - name: Upload flakiness report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: api-flakiness-report-shard-${{ matrix.shard }}
+          path: reports/flakiness
+          if-no-files-found: warn
+          retention-days: 1
+
   merge-reports:
     name: Merge API and UI reports
     needs: [api-tests, ui-tests, quality-gates]
@@ -183,7 +192,7 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 60
     container:
-      image: mcr.microsoft.com/playwright:v1.61.1-noble
+      image: ${{ env.PLAYWRIGHT_IMAGE }}
     strategy:
       fail-fast: false
       matrix:
@@ -234,5 +243,14 @@ jobs:
         with:
           name: ui-allure-results-shard-${{ matrix.shard }}
           path: reports/allure-results
+          if-no-files-found: warn
+          retention-days: 1
+
+      - name: Upload flakiness report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: ui-flakiness-report-shard-${{ matrix.shard }}
+          path: reports/flakiness
           if-no-files-found: warn
           retention-days: 1
