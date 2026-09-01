@@ -15,7 +15,6 @@ export default defineConfig(
       'playwright-report/**',
       'test-results/**',
       'allure-results/**',
-      'allure-report/**',
     ],
   },
   eslint.configs.recommended,

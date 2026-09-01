@@ -8,7 +8,6 @@ export class ProductDetailPage extends BasePage {
   private readonly addToCartButton: Locator;
   private readonly removeButton: Locator;
   private readonly backButton: Locator;
-  private readonly btnRemoveFromCart: Locator;
 
   constructor(page: Page) {
     super(page);
@@ -18,7 +17,6 @@ export class ProductDetailPage extends BasePage {
     this.addToCartButton = this.byCss('[data-test^="add-to-cart"]');
     this.removeButton = this.byCss('[data-test^="remove"]');
     this.backButton = this.byTestId('back-to-products');
-    this.btnRemoveFromCart = this.byCss('[data-test^="remove"]');
   }
 
   async getProductName(): Promise<string | null> {
