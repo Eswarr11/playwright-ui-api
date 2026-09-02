@@ -19,6 +19,8 @@ npm run quality           # Typecheck + lint + format check (auto-runs Prettier 
 
 **85 automated tests** total: **47 UI** + **38 API** across 23 spec files.
 
+> CI baseline: this PR intentionally carries no functional change. It exists to trigger a CI run under the current count-based `--shard` splitting, so shard durations can be captured as a "before" reference ahead of enabling duration-based shard balancing (see `feature/playwright-shard-balancing`).
+
 Manual test cases in [`docs/testcases/`](docs/testcases/): **82 rows** (**44** SauceDemo + **38** FakeStoreAPI). See [Test Case Traceability](#test-case-traceability) for how manual cases map to automation (including clubbed and split scenarios).
 
 Auth sessions for UI tests are generated automatically by `global-setup.ts` before the suite runs. Re-run tests anytime — auth files in `.auth/` are refreshed when older than 24 hours.
