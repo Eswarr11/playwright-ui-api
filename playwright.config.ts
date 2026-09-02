@@ -24,7 +24,7 @@ const reporters: Parameters<typeof defineConfig>[0]['reporter'] = [
     '@flakiness/playwright',
     {
       outputFolder: 'reports/flakiness',
-      disableUpload: true, // no Flakiness.io account/token — never attempt to upload
+      disableUpload: true, 
       shardBalancing: { timingsFile: './timings.json' },
     },
   ],
