@@ -1,9 +1,12 @@
 {
   "category": "playwright",
-  "commitId": "02a8bfa378a47ae9ed0f728202a98774b2665c27",
+  "commitId": "0c34a7e1cc05423a2fa0a1099fb16bf490f10921",
   "configPath": "playwright.config.ts",
   "duration": 0,
   "environments": [
+    {
+      "name": "ui"
+    },
     {
       "name": "api"
     }
@@ -11,12 +14,348 @@
   "startTimestamp": 0,
   "suites": [
     {
-      "title": "api/tests/carts/amazon.spec.ts",
+      "title": "ui/tests/auth/login.spec.ts",
       "type": "file",
-      "tests": [
+      "suites": [
         {
-          "title": "Amazon search test",
-          "attempts": []
+          "title": "Login",
+          "type": "suite",
+          "suites": [
+            {
+              "title": "Negative",
+              "type": "suite",
+              "tests": [
+                {
+                  "title": "Verify Empty Username Shows Required Error",
+                  "attempts": [
+                    {
+                      "duration": 908
+                    }
+                  ]
+                },
+                {
+                  "title": "Verify Wrong Password Shows Credentials Error",
+                  "attempts": [
+                    {
+                      "duration": 749
+                    }
+                  ]
+                },
+                {
+                  "title": "Verify Locked-Out User Cannot Log In",
+                  "attempts": [
+                    {
+                      "duration": 726
+                    }
+                  ]
+                },
+                {
+                  "title": "Verify Empty Password Shows Required Error",
+                  "attempts": [
+                    {
+                      "duration": 911
+                    }
+                  ]
+                },
+                {
+                  "title": "Verify Both Fields Empty Shows Username Required First",
+                  "attempts": [
+                    {
+                      "duration": 879
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "title": "Positive",
+              "type": "suite",
+              "tests": [
+                {
+                  "title": "Verify Standard User Can Access Inventory After Login",
+                  "attempts": [
+                    {
+                      "duration": 1031
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "ui/tests/auth/logout.spec.ts",
+      "type": "file",
+      "suites": [
+        {
+          "title": "Verify Successful Logout After Login",
+          "type": "suite",
+          "tests": [
+            {
+              "title": "Verify Successful Logout After Login",
+              "attempts": [
+                {
+                  "duration": 1902
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "ui/tests/cart/cart.spec.ts",
+      "type": "file",
+      "suites": [
+        {
+          "title": "Cart operations",
+          "type": "suite",
+          "tests": [
+            {
+              "title": "Verify Continue Shopping Returns to Inventory",
+              "attempts": [
+                {
+                  "duration": 672
+                }
+              ]
+            },
+            {
+              "title": "Verify Removing Item Updates Cart Count",
+              "attempts": [
+                {
+                  "duration": 621
+                }
+              ]
+            },
+            {
+              "title": "Verify Added Products Appear in Cart",
+              "attempts": [
+                {
+                  "duration": 639
+                }
+              ]
+            },
+            {
+              "title": "Verify Empty Cart Shows No Items",
+              "attempts": [
+                {
+                  "duration": 495
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "ui/tests/checkout/alternate-checkout.spec.ts",
+      "type": "file",
+      "suites": [
+        {
+          "title": "Verify Alternate Checkout Flow for Standard User",
+          "type": "suite",
+          "tests": [
+            {
+              "title": "Verify Alternate Checkout Flow for Standard User",
+              "attempts": [
+                {
+                  "duration": 1156
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "ui/tests/checkout/summary.spec.ts",
+      "type": "file",
+      "suites": [
+        {
+          "title": "Order summary accuracy",
+          "type": "suite",
+          "tests": [
+            {
+              "title": "Verify Order Total Equals Subtotal Plus Tax",
+              "attempts": [
+                {
+                  "duration": 996
+                }
+              ]
+            },
+            {
+              "title": "Verify Order Summary Subtotal Matches Product Prices",
+              "attempts": [
+                {
+                  "duration": 720
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "ui/tests/checkout/validation.spec.ts",
+      "type": "file",
+      "suites": [
+        {
+          "title": "Verify Mandatory Customer Information Validation",
+          "type": "suite",
+          "tests": [
+            {
+              "title": "missing zip code shows \"Postal Code is required\" error",
+              "attempts": [
+                {
+                  "duration": 909
+                }
+              ]
+            },
+            {
+              "title": "all fields empty shows validation error (first name checked first)",
+              "attempts": [
+                {
+                  "duration": 631
+                }
+              ]
+            },
+            {
+              "title": "missing first name shows \"First Name is required\" error",
+              "attempts": [
+                {
+                  "duration": 961
+                }
+              ]
+            },
+            {
+              "title": "missing last name shows \"Last Name is required\" error",
+              "attempts": [
+                {
+                  "duration": 865
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "ui/tests/inventory/product-detail.spec.ts",
+      "type": "file",
+      "suites": [
+        {
+          "title": "Product detail page",
+          "type": "suite",
+          "tests": [
+            {
+              "title": "Verify Product Detail Page Elements Visible",
+              "attempts": [
+                {
+                  "duration": 773
+                }
+              ]
+            },
+            {
+              "title": "Verify Back Button Returns to Inventory",
+              "attempts": [
+                {
+                  "duration": 928
+                }
+              ]
+            },
+            {
+              "title": "Verify Product Detail Shows Correct Name and Price",
+              "attempts": [
+                {
+                  "duration": 706
+                }
+              ]
+            },
+            {
+              "title": "Verify Add to Cart From Product Detail Page",
+              "attempts": [
+                {
+                  "duration": 806
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "ui/tests/reset/reset-app-state.spec.ts",
+      "type": "file",
+      "suites": [
+        {
+          "title": "Reset App State",
+          "type": "suite",
+          "tests": [
+            {
+              "title": "Verify Reset App State From Inventory Page",
+              "attempts": [
+                {
+                  "duration": 6880
+                }
+              ]
+            },
+            {
+              "title": "Verify Reset App State During Order Overview Step",
+              "attempts": [
+                {
+                  "duration": 1847
+                }
+              ]
+            },
+            {
+              "title": "Verify Reset App State From Cart Page",
+              "attempts": [
+                {
+                  "duration": 1770
+                }
+              ]
+            },
+            {
+              "title": "Verify Reset App State During Checkout Information Step",
+              "attempts": [
+                {
+                  "duration": 1889
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "api/tests/carts/cart-contract.spec.ts",
+      "type": "file",
+      "suites": [
+        {
+          "title": "Cart — Contract / Snapshot Tests",
+          "type": "suite",
+          "tests": [
+            {
+              "title": "GET /carts/1 response shape conforms to committed cart snapshot",
+              "attempts": [
+                {
+                  "environmentIdx": 1,
+                  "duration": 726
+                }
+              ]
+            },
+            {
+              "title": "Verify GET All Carts Response Matches Contract Schema",
+              "attempts": [
+                {
+                  "environmentIdx": 1,
+                  "duration": 919
+                }
+              ]
+            }
+          ]
         }
       ]
     },
@@ -29,8 +368,40 @@
           "type": "suite",
           "tests": [
             {
+              "title": "PATCH /carts/:id with an empty body returns a response without crashing",
+              "attempts": [
+                {
+                  "environmentIdx": 1,
+                  "duration": 520
+                }
+              ]
+            },
+            {
+              "title": "DELETE /carts/:id for non-existent cart returns a simulated response",
+              "attempts": [
+                {
+                  "environmentIdx": 1,
+                  "duration": 780
+                }
+              ]
+            },
+            {
+              "title": "POST /carts with empty products array still returns an id (FakeStoreAPI simulates)",
+              "attempts": [
+                {
+                  "environmentIdx": 1,
+                  "duration": 750
+                }
+              ]
+            },
+            {
               "title": "PUT /carts/:id for non-existent cart returns a simulated response",
-              "attempts": []
+              "attempts": [
+                {
+                  "environmentIdx": 1,
+                  "duration": 915
+                }
+              ]
             }
           ]
         },
@@ -40,7 +411,54 @@
           "tests": [
             {
               "title": "Verify PATCH Does Not Modify Unspecified Fields",
-              "attempts": []
+              "attempts": [
+                {
+                  "environmentIdx": 1,
+                  "duration": 586
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "title": "Cart CRUD — Positive Cases",
+          "type": "suite",
+          "tests": [
+            {
+              "title": "PATCH /carts/:id partially updates a cart",
+              "attempts": [
+                {
+                  "environmentIdx": 1,
+                  "duration": 827
+                }
+              ]
+            },
+            {
+              "title": "DELETE /carts/:id returns the deleted cart object",
+              "attempts": [
+                {
+                  "environmentIdx": 1,
+                  "duration": 2606
+                }
+              ]
+            },
+            {
+              "title": "PUT /carts/:id fully replaces a cart and returns updated id",
+              "attempts": [
+                {
+                  "environmentIdx": 1,
+                  "duration": 285
+                }
+              ]
+            },
+            {
+              "title": "POST /carts creates a cart and returns a new id",
+              "attempts": [
+                {
+                  "environmentIdx": 1,
+                  "duration": 755
+                }
+              ]
             }
           ]
         },
@@ -49,8 +467,55 @@
           "type": "suite",
           "tests": [
             {
+              "title": "Cart date field is a non-empty string",
+              "attempts": [
+                {
+                  "environmentIdx": 1,
+                  "duration": 1250
+                }
+              ]
+            },
+            {
+              "title": "Verify Cart Dates Follow ISO-8601 Format",
+              "attempts": [
+                {
+                  "environmentIdx": 1,
+                  "duration": 292
+                }
+              ]
+            },
+            {
               "title": "Cart id and userId are positive integers",
-              "attempts": []
+              "attempts": [
+                {
+                  "environmentIdx": 1,
+                  "duration": 282
+                }
+              ]
+            },
+            {
+              "title": "Cart products array items each have productId (number) and quantity (number)",
+              "attempts": [
+                {
+                  "environmentIdx": 1,
+                  "duration": 735
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "title": "Cart CRUD — Authenticated Requests",
+          "type": "suite",
+          "tests": [
+            {
+              "title": "Authenticated GET /carts request returns data with Bearer token",
+              "attempts": [
+                {
+                  "environmentIdx": 1,
+                  "duration": 601
+                }
+              ]
             }
           ]
         }
@@ -66,23 +531,48 @@
           "tests": [
             {
               "title": "POST /carts with productId=12 (jewelery – White Gold Diamond Ring) returns a valid cart id",
-              "attempts": []
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "title": "api/tests/carts/post-validation.spec.ts",
-      "type": "file",
-      "suites": [
-        {
-          "title": "Cart — POST Validation",
-          "type": "suite",
-          "tests": [
+              "attempts": [
+                {
+                  "environmentIdx": 1,
+                  "duration": 128
+                }
+              ]
+            },
             {
-              "title": "Verify POST Without Products Field Returns Validation Error",
-              "attempts": []
+              "title": "POST /carts with productId=20 (electronics – SanDisk SSD) returns a valid cart id",
+              "attempts": [
+                {
+                  "environmentIdx": 1,
+                  "duration": 131
+                }
+              ]
+            },
+            {
+              "title": "POST /carts with productId=8 (women's clothing – Pierced Owl ring) returns a valid cart id",
+              "attempts": [
+                {
+                  "environmentIdx": 1,
+                  "duration": 176
+                }
+              ]
+            },
+            {
+              "title": "POST /carts with productId=1 (electronics – Fjallraven backpack) returns a valid cart id",
+              "attempts": [
+                {
+                  "environmentIdx": 1,
+                  "duration": 182
+                }
+              ]
+            },
+            {
+              "title": "POST /carts with productId=5 (men's clothing – John Hardy bracelet) returns a valid cart id",
+              "attempts": [
+                {
+                  "environmentIdx": 1,
+                  "duration": 1022
+                }
+              ]
             }
           ]
         }
@@ -101,8 +591,73 @@
               "type": "suite",
               "tests": [
                 {
+                  "title": "Verify GET Carts With Malformed Bearer Token Returns Unauthorized",
+                  "attempts": [
+                    {
+                      "environmentIdx": 1,
+                      "duration": 279
+                    }
+                  ]
+                },
+                {
+                  "title": "Verify GET Carts With Tampered JWT Payload Returns Unauthorized",
+                  "attempts": [
+                    {
+                      "environmentIdx": 1,
+                      "duration": 499
+                    }
+                  ]
+                },
+                {
                   "title": "Verify GET Carts Without Authorization Token Returns Unauthorized",
-                  "attempts": []
+                  "attempts": [
+                    {
+                      "environmentIdx": 1,
+                      "duration": 295
+                    }
+                  ]
+                },
+                {
+                  "title": "Verify GET Carts With Empty Bearer Token Returns Unauthorized",
+                  "attempts": [
+                    {
+                      "environmentIdx": 1,
+                      "duration": 294
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "title": "IDOR — cross-cart access",
+              "type": "suite",
+              "tests": [
+                {
+                  "title": "Verify Unauthenticated Client Cannot Mutate Another Users Cart",
+                  "attempts": [
+                    {
+                      "environmentIdx": 1,
+                      "duration": 202
+                    }
+                  ]
+                },
+                {
+                  "title": "Verify Authenticated Client Cannot Read Carts Belonging To Other Users",
+                  "attempts": [
+                    {
+                      "environmentIdx": 1,
+                      "duration": 589
+                    }
+                  ]
+                },
+                {
+                  "title": "Verify Unauthenticated Client Cannot Read Cart By Id",
+                  "attempts": [
+                    {
+                      "environmentIdx": 1,
+                      "duration": 301
+                    }
+                  ]
                 }
               ]
             },
@@ -111,8 +666,442 @@
               "type": "suite",
               "tests": [
                 {
+                  "title": "Verify Unauthenticated POST Carts Returns Unauthorized",
+                  "attempts": [
+                    {
+                      "environmentIdx": 1,
+                      "duration": 180
+                    }
+                  ]
+                },
+                {
                   "title": "Verify Unauthenticated DELETE Carts Returns Unauthorized",
-                  "attempts": []
+                  "attempts": [
+                    {
+                      "environmentIdx": 1,
+                      "duration": 306
+                    }
+                  ]
+                },
+                {
+                  "title": "Verify Invalid Token Blocks PUT Carts",
+                  "attempts": [
+                    {
+                      "environmentIdx": 1,
+                      "duration": 173
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "ui/tests/auth/user-types.spec.ts",
+      "type": "file",
+      "suites": [
+        {
+          "title": "User type behaviors",
+          "type": "suite",
+          "suites": [
+            {
+              "title": "Login-required scenarios",
+              "type": "suite",
+              "tests": [
+                {
+                  "title": "Verify Inventory Page Loads Successfully With Delays",
+                  "attempts": [
+                    {
+                      "duration": 6131
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "title": "visual_user",
+              "type": "suite",
+              "tests": [
+                {
+                  "title": "Verify Visual User Can Access Inventory",
+                  "attempts": [
+                    {
+                      "duration": 934
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "title": "error_user",
+              "type": "suite",
+              "tests": [
+                {
+                  "title": "Verify Error User Can Access Inventory",
+                  "attempts": [
+                    {
+                      "duration": 689
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "title": "problem_user",
+              "type": "suite",
+              "tests": [
+                {
+                  "title": "Verify Problem User Product Images Are Mismatched",
+                  "attempts": [
+                    {
+                      "duration": 836
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "ui/tests/checkout/cart-navigation.spec.ts",
+      "type": "file",
+      "suites": [
+        {
+          "title": "Verify Cart Navigation From Order Confirmation Page",
+          "type": "suite",
+          "tests": [
+            {
+              "title": "Verify Cart Navigation From Order Confirmation Page",
+              "attempts": [
+                {
+                  "duration": 929
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "ui/tests/inventory/add-to-cart.spec.ts",
+      "type": "file",
+      "suites": [
+        {
+          "title": "Inventory — Add / Remove from Cart",
+          "type": "suite",
+          "suites": [
+            {
+              "title": "Negative",
+              "type": "suite",
+              "tests": [
+                {
+                  "title": "Verify Cart Badge Hidden When Cart Empty",
+                  "attempts": [
+                    {
+                      "duration": 587
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "title": "Positive",
+              "type": "suite",
+              "tests": [
+                {
+                  "title": "Verify Adding One Product Updates Cart Badge",
+                  "attempts": [
+                    {
+                      "duration": 789
+                    }
+                  ]
+                },
+                {
+                  "title": "Verify Adding Three Products Updates Cart Badge",
+                  "attempts": [
+                    {
+                      "duration": 883
+                    }
+                  ]
+                },
+                {
+                  "title": "Verify Cart Badge Starts at Zero",
+                  "attempts": [
+                    {
+                      "duration": 608
+                    }
+                  ]
+                },
+                {
+                  "title": "Verify Removing Product Decrements Cart Badge",
+                  "attempts": [
+                    {
+                      "duration": 695
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "ui/tests/inventory/sorting.spec.ts",
+      "type": "file",
+      "suites": [
+        {
+          "title": "Product Sorting",
+          "type": "suite",
+          "tests": [
+            {
+              "title": "Verify Product Sort Name A to Z",
+              "attempts": [
+                {
+                  "duration": 669
+                }
+              ]
+            },
+            {
+              "title": "Verify Product Sort Price Low to High",
+              "attempts": [
+                {
+                  "duration": 822
+                }
+              ]
+            },
+            {
+              "title": "Verify Product Sort Price High to Low",
+              "attempts": [
+                {
+                  "duration": 642
+                }
+              ]
+            },
+            {
+              "title": "Verify Product Sort Name Z to A",
+              "attempts": [
+                {
+                  "duration": 562
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "ui/tests/performance-glitch/checkout-step-one.spec.ts",
+      "type": "file",
+      "suites": [
+        {
+          "title": "Verify Checkout Information Page Loads With Delays",
+          "type": "suite",
+          "tests": [
+            {
+              "title": "Verify Checkout Information Page Loads With Delays",
+              "attempts": [
+                {
+                  "duration": 5912
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "api/tests/carts/get.spec.ts",
+      "type": "file",
+      "suites": [
+        {
+          "title": "GET /carts",
+          "type": "suite",
+          "suites": [
+            {
+              "title": "Negative",
+              "type": "suite",
+              "tests": [
+                {
+                  "title": "non-existent cart id returns null or 404",
+                  "attempts": [
+                    {
+                      "environmentIdx": 1,
+                      "duration": 284
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "title": "Positive",
+              "type": "suite",
+              "tests": [
+                {
+                  "title": "returns all carts with correct count",
+                  "attempts": [
+                    {
+                      "environmentIdx": 1,
+                      "duration": 277
+                    }
+                  ]
+                },
+                {
+                  "title": "cart products array contains productId and quantity",
+                  "attempts": [
+                    {
+                      "environmentIdx": 1,
+                      "duration": 281
+                    }
+                  ]
+                },
+                {
+                  "title": "returns single cart by id with valid schema",
+                  "attempts": [
+                    {
+                      "environmentIdx": 1,
+                      "duration": 279
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "api/tests/carts/post-validation.spec.ts",
+      "type": "file",
+      "suites": [
+        {
+          "title": "Cart — POST Validation",
+          "type": "suite",
+          "tests": [
+            {
+              "title": "Verify POST With Invalid ProductId Returns Validation Error",
+              "attempts": [
+                {
+                  "environmentIdx": 1,
+                  "duration": 197
+                }
+              ]
+            },
+            {
+              "title": "Verify POST With Negative Quantity Returns Validation Error",
+              "attempts": [
+                {
+                  "environmentIdx": 1,
+                  "duration": 203
+                }
+              ]
+            },
+            {
+              "title": "Verify POST Without Products Field Returns Validation Error",
+              "attempts": [
+                {
+                  "environmentIdx": 1,
+                  "duration": 196
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "ui/tests/checkout/e2e.spec.ts",
+      "type": "file",
+      "suites": [
+        {
+          "title": "Checkout E2E",
+          "type": "suite",
+          "tests": [
+            {
+              "title": "Verify Removed Inventory Items Do Not Appear in Checkout Flow",
+              "attempts": [
+                {
+                  "duration": 1221
+                }
+              ]
+            },
+            {
+              "title": "Verify User Can Add More Products and Complete Checkout After Reaching Order Overview",
+              "attempts": [
+                {
+                  "duration": 1386
+                }
+              ]
+            },
+            {
+              "title": "Verify Successful End-to-End Checkout for Standard User",
+              "attempts": [
+                {
+                  "duration": 1200
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "ui/tests/checkout/problem-user-checkout.spec.ts",
+      "type": "file",
+      "suites": [
+        {
+          "title": "Verify Checkout Completion for Problem User",
+          "type": "suite",
+          "tests": [
+            {
+              "title": "Verify Checkout Completion for Problem User",
+              "attempts": [
+                {
+                  "duration": 657
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "ui/tests/performance-glitch/cart.spec.ts",
+      "type": "file",
+      "suites": [
+        {
+          "title": "Verify Cart Page Loads Successfully With Delays",
+          "type": "suite",
+          "tests": [
+            {
+              "title": "Verify Cart Page Loads Successfully With Delays",
+              "attempts": [
+                {
+                  "duration": 5769
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "ui/tests/cart/persistence.spec.ts",
+      "type": "file",
+      "suites": [
+        {
+          "title": "Cart persistence",
+          "type": "suite",
+          "tests": [
+            {
+              "title": "Verify Cart Persists After Page Reload",
+              "attempts": [
+                {
+                  "duration": 731
                 }
               ]
             }
