@@ -24,7 +24,7 @@ const reporters: Parameters<typeof defineConfig>[0]['reporter'] = [
     '@flakiness/playwright',
     {
       outputFolder: 'reports/flakiness',
-      disableUpload: true, 
+      disableUpload: true,
       shardBalancing: { timingsFile: './timings.json' },
     },
   ],
