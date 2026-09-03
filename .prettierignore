@@ -1,5 +1,6 @@
 node_modules/
 package-lock.json
+timings.json
 reports/
 my-allure-results/
 playwright-report/

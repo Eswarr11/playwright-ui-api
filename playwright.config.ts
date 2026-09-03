@@ -20,6 +20,14 @@ const reporters: Parameters<typeof defineConfig>[0]['reporter'] = [
       suiteTitle: true,
     },
   ],
+  [
+    '@flakiness/playwright',
+    {
+      outputFolder: 'reports/flakiness',
+      disableUpload: true,
+      shardBalancing: { timingsFile: './timings.json' },
+    },
+  ],
 ];
 
 export default defineConfig({

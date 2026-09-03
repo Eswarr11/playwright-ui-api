@@ -3,8 +3,12 @@ name: Playwright Tests
 on:
   push:
     branches: [main, master]
+    paths-ignore:
+      - 'timings.json'
   pull_request:
     branches: [main, master]
+    paths-ignore:
+      - 'timings.json'
 
 permissions:
   contents: read
@@ -13,7 +17,7 @@ permissions:
 env:
   API_BASE_URL: https://fakestoreapi.com
   UI_BASE_URL: https://www.saucedemo.com
-  PLAYWRIGHT_IMAGE: mcr.microsoft.com/playwright:v1.61.1-noble
+  PLAYWRIGHT_IMAGE: mcr.microsoft.com/playwright:v1.62.1-noble
 
 jobs:
   quality-gates:
@@ -40,7 +44,7 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 30
     container:
-      image: mcr.microsoft.com/playwright:v1.61.1-noble
+      image: mcr.microsoft.com/playwright:v1.62.1-noble
     env:
       ACTIONS_ALLOW_USE_UNSECURE_NODE_VERSION: true
     steps:
@@ -119,14 +123,29 @@ jobs:
           if-no-files-found: warn
           retention-days: 1
 
+      - name: Upload flakiness report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: api-flakiness-report-shard-${{ matrix.shard }}
+          path: reports/flakiness
+          if-no-files-found: warn
+          retention-days: 1
+
   merge-reports:
     name: Merge API and UI reports
     needs: [api-tests, ui-tests, quality-gates]
     if: ${{ !cancelled() }}
     runs-on: ubuntu-latest
     timeout-minutes: 30
+    permissions:
+      contents: write
+      actions: write
     steps:
       - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.head_ref || github.ref_name }}
+          token: ${{ secrets.GITHUB_TOKEN }}
 
       - uses: actions/setup-node@v4
         with:
@@ -157,6 +176,14 @@ jobs:
           pattern: '*-allure-results-shard-*'
           merge-multiple: true
 
+      - name: Download flakiness reports
+        if: ${{ !cancelled() }}
+        uses: actions/download-artifact@v4
+        continue-on-error: true
+        with:
+          path: all-flakiness-reports
+          pattern: '*-flakiness-report-shard-*'
+
       - name: Merge Playwright reports
         run: npx playwright merge-reports --config playwright.merge.config.ts ./all-blob-reports
         continue-on-error: true
@@ -164,6 +191,17 @@ jobs:
       - name: Generate Allure report
         run: npx allure generate combined-allure-results --clean -o allure-report
         continue-on-error: true
+
+      - name: Build timings.json
+        if: ${{ !cancelled() }}
+        continue-on-error: true
+        run: |
+          mapfile -t reports < <(find all-flakiness-reports -name 'report.json' -type f 2>/dev/null)
+          if [ ${#reports[@]} -eq 0 ]; then
+            echo "No flakiness reports found; skipping timings.json update."
+            exit 0
+          fi
+          npx flakiness-playwright-timings build -o timings.json "${reports[@]}"
 
       - name: Upload combined reports
         if: always()
@@ -173,8 +211,28 @@ jobs:
           path: |
             playwright-report/
             allure-report/
+            timings.json
           if-no-files-found: warn
           retention-days: 14
+
+      - name: Commit and push timings.json
+        if: ${{ !cancelled() && (github.event_name == 'push' || github.event.pull_request.head.repo.full_name == github.repository) }}
+        continue-on-error: true
+        run: |
+          if [ ! -f timings.json ]; then
+            echo "timings.json was not generated; skipping commit."
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add timings.json
+          if git diff --staged --quiet; then
+            echo "timings.json is unchanged."
+            exit 0
+          fi
+          git commit -m "chore: update Playwright shard timings [skip ci]"
+          git pull --rebase origin "${{ github.head_ref || github.ref_name }}"
+          git push origin "HEAD:${{ github.head_ref || github.ref_name }}"
 
   ui-tests:
     name: UI shard ${{ matrix.shard }}/5
@@ -183,7 +241,7 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 60
     container:
-      image: mcr.microsoft.com/playwright:v1.61.1-noble
+      image: mcr.microsoft.com/playwright:v1.62.1-noble
     strategy:
       fail-fast: false
       matrix:
@@ -234,5 +292,14 @@ jobs:
         with:
           name: ui-allure-results-shard-${{ matrix.shard }}
           path: reports/allure-results
+          if-no-files-found: warn
+          retention-days: 1
+
+      - name: Upload flakiness report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: ui-flakiness-report-shard-${{ matrix.shard }}
+          path: reports/flakiness
           if-no-files-found: warn
           retention-days: 1

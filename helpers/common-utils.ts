@@ -17,4 +17,9 @@ export class CommonUtils {
     const dd = String(d.getDate()).padStart(2, '0');
     return format === 'YYYY-MM-DD' ? `${yyyy}-${mm}-${dd}` : `${mm}/${dd}/${yyyy}`;
   }
+
+  static calculateTotal(prices: number[]): number {
+    const total = prices.reduce((sum, price) => sum + price, 0);
+    return parseFloat(total.toFixed(2));
+  }
 }
